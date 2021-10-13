@@ -110,4 +110,4 @@ services:
 networks:
  default:
    external:
-     name: prometheus-back
+     name: redis_nextracker-back
