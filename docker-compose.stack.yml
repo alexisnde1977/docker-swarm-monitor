@@ -88,7 +88,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - "node.labels.prometheus1==true"
+          - "node.labels.PROD-DOCKER-1==true"
       resources:
         limits:
           memory: 2048M
