@@ -110,4 +110,4 @@ services:
 networks:
  default:
    external:
-     name: redis_nextracker-back
+     name: nextracker-back
