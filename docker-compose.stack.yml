@@ -1,8 +1,4 @@
-version: "3.7"
-#networks:
-#  net:
-#    driver: overlay
-#    attachable: true
+version: '3.7'
 
 volumes:
   prometheus: {}
@@ -18,8 +14,6 @@ configs:
 services:
   cadvisor:
     image: google/cadvisor
-  #  networks:
-  #    - net
     command: -logtostderr -docker_only
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -37,8 +31,6 @@ services:
 
   node-exporter:
     image: prom/node-exporter:latest
- #   networks:
- #     - net
     volumes:
       - /sys:/host/sys:ro
       - /:/rootfs:ro
@@ -65,8 +57,6 @@ services:
 
   dockerd-exporter:
     image: stefanprodan/caddy
-#    networks:
-#      - net
     environment:
       - docker_gwbridge_IP=172.18.0.1
     configs:
@@ -82,8 +72,6 @@ services:
 
   prometheus:
     image: prom/prometheus
-#    networks:
-#      - net
     ports:
       - "9090:9090"
     command:
