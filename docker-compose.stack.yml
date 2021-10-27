@@ -2,6 +2,7 @@ version: '3.7'
 
 volumes:
   prometheus: {}
+  alertmanager: {}
 
 configs:
    dockerd_config:
@@ -10,6 +11,10 @@ configs:
     file: ./prometheus/conf/prometheus.yml
    node_exporter_entrypoint:
     file: ./node-exporter/docker-entrypoint.sh
+   node_rules:
+    file: ./prometheus/rules/swarm_node.rules.yml
+   task_rules:
+    file: ./prometheus/rules/swarm_task.rules.yml
 
 services:
   cadvisor:
@@ -79,7 +84,32 @@ services:
       placement:
         constraints:
           - node.role == manager
-          
+  alertmanager:
+    image: stefanprodan/swarmprom-alertmanager:v0.14.0
+    environment:
+      - SLACK_URL=${SLACK_URL:-https://hooks.slack.com/services/TOKEN}
+      - SLACK_CHANNEL=${SLACK_CHANNEL:-general}
+      - SLACK_USER=${SLACK_USER:-alertmanager}
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+    volumes:
+      - alertmanager:/alertmanager
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  unsee:
+    image: cloudflare/unsee:v0.8.0
+    environment:
+      - "ALERTMANAGER_URIS=default:http://alertmanager:9093"
+    deploy:
+      mode: replicated
+      replicas: 1
+      
 networks:
  default:
    external:
