@@ -6,14 +6,12 @@ global:
     monitor: 'prommon'
     
 rule_files:
-  - "swarm_node.rules.yml"
-  - "swarm_task.rules.yml"
-
+  - alert.rules.yml
 alerting:
   alertmanagers:
   - static_configs:
     - targets:
-      - alertmanager:9093
+      - 'localhost:9093'
       
 scrape_configs:
   - job_name: 'prometheus'
