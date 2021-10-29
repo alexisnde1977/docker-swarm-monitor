@@ -7,6 +7,9 @@ global:
     
 rule_files:
   - alert.rules.yml
+  - swarm_node.rules.yml
+  - swarm_task.rules.yml
+  
 alerting:
   alertmanagers:
   - static_configs:
