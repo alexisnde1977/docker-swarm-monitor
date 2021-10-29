@@ -22,3 +22,4 @@ The following components are part of this project
 * node Exporter
 * dockerd-exporter
 * Prometheus
+* Alertmanager
