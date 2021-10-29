@@ -12,6 +12,8 @@ configs:
     file: ./prometheus/conf/prometheus.yml
    node_exporter_entrypoint:
     file: ./node-exporter/docker-entrypoint.sh
+   alert_conf:
+     file: ./prometheus/conf/alert.rules.yml
    
 services:
   cadvisor:
@@ -75,6 +77,8 @@ services:
     configs:
       - source: prom_conf
         target: /etc/prometheus/prometheus.yml
+      - source: alert_conf
+        target: /etc/prometheus/alert.rules.yml
     deploy:
       mode: replicated
       replicas: 1
