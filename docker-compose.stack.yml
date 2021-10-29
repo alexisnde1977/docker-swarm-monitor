@@ -12,10 +12,7 @@ configs:
     file: ./prometheus/conf/prometheus.yml
    node_exporter_entrypoint:
     file: ./node-exporter/docker-entrypoint.sh
-   alert.rules:
-    file: ./prometheus/alert.rules.yml
    
-
 services:
   cadvisor:
     image: google/cadvisor
