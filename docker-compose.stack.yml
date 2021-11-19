@@ -75,7 +75,6 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
-      - '--storage.tsdb.retention=${PROMETHEUS_RETENTION:-24h}'
     volumes:
       - prometheus:/prometheus
     configs:
@@ -92,7 +91,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - "node.labels.prod-docker-1==true"
+          - "node.labels.dev-docker-1==true"
   alertmanager:
     image: prom/alertmanager:latest
     command:
@@ -105,7 +104,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - "node.labels.prod-docker-1==true"
+          - "node.labels.dev-docker-1==true"
     volumes:
       - alertmanager:/alertmanager
       - alertmanager-config:/etc/alertmanager
