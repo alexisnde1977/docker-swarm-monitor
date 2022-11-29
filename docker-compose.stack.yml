@@ -77,7 +77,6 @@ services:
       - "9115:9115"
     command:
       - '--config.file=/etc/blackbox/blackbox.yml'
-      - '--storage.tsdb.path=/blackbox'
     configs:
       - source: blackbox_config
         target: /etc/blackbox/blackbox.yml
