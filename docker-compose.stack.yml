@@ -140,11 +140,8 @@ services:
       - source: task_rules
         target: /etc/prometheus/swarm_task.rules.yml
     deploy:
-      mode: replicated
-      replicas: 1
-      placement:
-        constraints:
-          - "node.labels.qa-docker-1==true"
+      mode: global
+      
   alertmanager:
     image: prom/alertmanager:latest
     command:
@@ -153,11 +150,7 @@ services:
     ports:
         - "9093:9093"
     deploy:
-      mode: replicated
-      replicas: 1
-      placement:
-        constraints:
-          - "node.labels.qa-docker-1==true"
+      mode: global
     volumes:
       - alertmanager:/alertmanager
       - alertmanager-config:/etc/alertmanager
