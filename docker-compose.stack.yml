@@ -83,11 +83,7 @@ services:
     volumes:
       - blackbox:/blackbox
     deploy:
-      mode: replicated
-      replicas: 1
-      placement:
-        constraints:
-          - "node.labels.qa-docker-1==true"
+      mode: global
   
   tatooine_nginx:
     image: nginx/nginx-prometheus-exporter:latest 
