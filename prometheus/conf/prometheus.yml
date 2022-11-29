@@ -36,7 +36,7 @@ scrape_configs:
         - http://task-tracker-ops-angular:80
         - http://task-tatooine:80
         - http://external-trackerops-landing-page:80
-        - https://trackerops.nextracker.com/v1/sites?rt=t
+        - http://172.21.193.12/v1/sites?rt=t
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
