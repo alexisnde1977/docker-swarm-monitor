@@ -4,6 +4,7 @@ volumes:
   prometheus: {}
   alertmanager: {}
   alertmanager-config: {}
+  blackbox: {}
 
 configs:
    dockerd_config:
@@ -74,6 +75,9 @@ services:
     image: prom/blackbox-exporter:latest
     ports:
       - "9115:9115"
+    command:
+      - '--config.file=/etc/blackbox/blackbox.yml'
+      - '--storage.tsdb.path=/blackbox'
     configs:
       - source: blackbox_config
         target: /etc/blackbox/blackbox.yml
