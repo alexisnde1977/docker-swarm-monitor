@@ -33,8 +33,12 @@ scrape_configs:
       module: [http_2xx]
     static_configs:
       - targets:
-        - http://nginx:80
-        - http://nginx2:80
+        - http://task-tracker-ops-angular:80
+        - http://task-tatooine:80
+        - http://external-trackerops-landing-page:80
+        - http://task-tatooine:8080/stub_status
+        - http://task-tracker-ops-angular:8080/stub_status
+        - http://external-trackerops-landing-page:8080/stub_status
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
