@@ -86,6 +86,42 @@ services:
     deploy:
       mode: global
   
+  tatooine_nginx:
+    image: nginx/nginx-prometheus-exporter:latest 
+    container_name: tatooine_nginx
+    expose:
+       - "9113"
+    command:
+      - -nginx.scrape-uri
+      - http://task-tatooine:8080/stub_status 
+      
+  user-management_nginx:
+    image: nginx/nginx-prometheus-exporter:latest 
+    container_name: user-management_nginx
+    expose:
+       - "9113"
+    command:
+      - -nginx.scrape-uri
+      - http://user-management:8080/stub_status
+      
+  tracker-ops-angular_nginx:
+    image: nginx/nginx-prometheus-exporter:latest 
+    container_name: tracker-ops-angular_nginx
+    expose:
+       - "9113"
+    command:
+      - -nginx.scrape-uri
+      - http://task-tracker-ops-angular:8080/stub_status
+      
+  external-trackerops-landing-page_nginx:
+    image: nginx/nginx-prometheus-exporter:latest 
+    container_name: external-trackerops-landing-page_nginx
+    expose:
+       - "9113"
+    command:
+      - -nginx.scrape-uri
+      - http://external-trackerops-landing-page:8080/stub_status
+  
   prometheus:
     image: prom/prometheus
     ports:
