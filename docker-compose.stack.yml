@@ -8,6 +8,8 @@ volumes:
 configs:
    dockerd_config:
     file: ./dockerd-exporter/Caddyfile
+   blackbox_config:
+    file: ./blackbox/blackbox.yml
    prom_conf:
     file: ./prometheus/conf/prometheus.yml
    node_exporter_entrypoint:
@@ -104,7 +106,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - "node.labels.dev-docker-1==true"
+          - "node.labels.qa-docker-1==true"
     volumes:
       - alertmanager:/alertmanager
       - alertmanager-config:/etc/alertmanager
