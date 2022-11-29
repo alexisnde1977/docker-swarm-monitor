@@ -69,7 +69,19 @@ services:
         target: /etc/caddy/Caddyfile
     deploy:
       mode: global
-
+  
+  blackbox:
+    image: prom/blackbox-exporter:latest
+    ports:
+      - "9115:9115"
+    configs:
+      - source: blackbox_config
+        target: /etc/blackbox/blackbox.yml
+    volumes:
+      - blackbox:/blackbox
+    deploy:
+      mode: global
+  
   prometheus:
     image: prom/prometheus
     ports:
