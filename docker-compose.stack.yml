@@ -105,7 +105,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - "node.labels.dev-docker-1==true"
+          - "node.labels.qa-docker-1==true"
   alertmanager:
     image: prom/alertmanager:latest
     command:
