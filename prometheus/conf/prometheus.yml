@@ -21,7 +21,28 @@ scrape_configs:
     honor_labels: true
     static_configs:
       - targets: ['localhost:9090']  
-  
+      
+  - job_name: 'nginx-exporter'
+    honor_labels: true
+    static_configs:
+      - targets: ['tatooine_nginx:9113','user-management_nginx:9113','tracker-ops-angular_nginx:9113','external-trackerops-landing-page_nginx:9113']
+    
+  - job_name: 'blackbox'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+        - http://nginx:80
+        - http://nginx2:80
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox:9115
+    
   - job_name: 'dockerd-exporter'
     honor_labels: true
     dns_sd_configs:
