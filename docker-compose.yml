@@ -92,7 +92,7 @@ services:
        - "9113"
     command:
       - -nginx.scrape-uri
-      - http://task-tatooine:8080/stub_status 
+      - http://task-tatooine:80/stub_status 
       
   user-management_nginx:
     image: nginx/nginx-prometheus-exporter:latest 
@@ -101,7 +101,7 @@ services:
        - "9113"
     command:
       - -nginx.scrape-uri
-      - http://user-management:8080/stub_status
+      - http://user-management:80/stub_status
       
   tracker-ops-angular_nginx:
     image: nginx/nginx-prometheus-exporter:latest 
@@ -110,7 +110,7 @@ services:
        - "9113"
     command:
       - -nginx.scrape-uri
-      - http://task-tracker-ops-angular:8080/stub_status
+      - http://task-tracker-ops-angular:80/stub_status
       
   external-trackerops-landing-page_nginx:
     image: nginx/nginx-prometheus-exporter:latest 
@@ -119,7 +119,7 @@ services:
        - "9113"
     command:
       - -nginx.scrape-uri
-      - http://external-trackerops-landing-page:8080/stub_status
+      - http://external-trackerops-landing-page:80/stub_status
   
   prometheus:
     image: prom/prometheus
