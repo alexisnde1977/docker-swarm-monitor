@@ -18,6 +18,8 @@ configs:
     file: ./prometheus/conf/swarm_node.rules.yml
    task_rules:
     file: ./prometheus/conf/swarm_task.rules.yml
+
+
    
 services:
   cadvisor:
@@ -71,7 +73,7 @@ services:
   prometheus:
     image: prom/prometheus
     ports:
-      - "9090:9090"
+      - 9090:9090
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
@@ -89,22 +91,45 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-      placement:
-        constraints:
-          - "node.labels.dev-docker-1==true"
+      
+  tatooine_nginx:
+    image: nginx/nginx-prometheus-exporter:latest 
+    container_name: tatooine_nginx
+    expose:
+       - "9113"
+    command:
+      - -nginx.scrape-uri
+      - http://task-tatooine:80/stub_status 
+      
+  user-management_nginx:
+    image: nginx/nginx-prometheus-exporter:latest 
+    container_name: user-management_nginx
+    expose:
+       - "9113"
+    command:
+      - -nginx.scrape-uri
+      - http://user-management:80/stub_status
+      
+  external-trackerops-landing-page_nginx:
+    image: nginx/nginx-prometheus-exporter:latest 
+    container_name: external-trackerops-landing-page_nginx
+    expose:
+       - "9113"
+    command:
+      - -nginx.scrape-uri
+      - http://external-trackerops-landing-page:80/stub_status
+    
   alertmanager:
     image: prom/alertmanager:latest
     command:
       - '--config.file=/etc/alertmanager/alertmanager.yml'
       - '--storage.path=/alertmanager'
     ports:
-        - "9093:9093"
+        - 9093:9093
     deploy:
       mode: replicated
       replicas: 1
-      placement:
-        constraints:
-          - "node.labels.dev-docker-1==true"
+      
     volumes:
       - alertmanager:/alertmanager
       - alertmanager-config:/etc/alertmanager
