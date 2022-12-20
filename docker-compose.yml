@@ -92,7 +92,16 @@ services:
        - "9113"
     command:
       - -nginx.scrape-uri
-      - http://task-tatooine:80/stub_status 
+      - http://task-tatooine:80/stub_status
+      
+  matrix_nginx:
+    image: nginx/nginx-prometheus-exporter:latest 
+    container_name: matrix_nginx
+    expose:
+       - "9113"
+    command:
+      - -nginx.scrape-uri
+      - http://matrix-front-end:80/stub_status
       
   user-management_nginx:
     image: nginx/nginx-prometheus-exporter:latest 
