@@ -36,7 +36,8 @@ scrape_configs:
         - http://task-tracker-ops-angular:80
         - http://task-tatooine:80
         - http://external-trackerops-landing-page:80
-        - http://172.21.193.12/v1/sites?rt=t
+        - http://naboo_task-tatooine:80
+        - http://user-management:80
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
