@@ -18,7 +18,7 @@ configs:
     file: ./prometheus/conf/swarm_node.rules.yml
    task_rules:
     file: ./prometheus/conf/swarm_task.rules.yml
-   
+
 services:
   cadvisor:
     image: google/cadvisor
@@ -32,6 +32,7 @@ services:
     deploy:
       mode: global
 
+
   node-exporter:
     image: prom/node-exporter:latest
     volumes:
@@ -40,10 +41,11 @@ services:
       - /proc:/host/proc:ro
       - /etc/hostname:/etc/nodename
     configs:
-      - source: node_exporter_entrypoint 
+      - source: node_exporter_entrypoint
         target: /docker-entrypoint.sh
     deploy:
       mode: global
+
     environment:
       - NODE_ID={{.Node.ID}}
     command:
@@ -91,7 +93,35 @@ services:
       replicas: 1
       placement:
         constraints:
-          - "node.labels.dev-docker-1==true"
+          - "node.labels.prod-docker-1==true"
+
+  tatooine_nginx:
+    image: nginx/nginx-prometheus-exporter:latest 
+    container_name: tatooine_nginx
+    expose:
+       - "9113"
+    command:
+      - -nginx.scrape-uri
+      - http://task-tatooine:80/stub_status 
+      
+  user-management_nginx:
+    image: nginx/nginx-prometheus-exporter:latest 
+    container_name: user-management_nginx
+    expose:
+       - "9113"
+    command:
+      - -nginx.scrape-uri
+      - http://user-management:80/stub_status
+      
+  external-trackerops-landing-page_nginx:
+    image: nginx/nginx-prometheus-exporter:latest 
+    container_name: external-trackerops-landing-page_nginx
+    expose:
+       - "9113"
+    command:
+      - -nginx.scrape-uri
+      - http://external-trackerops-landing-page:80/stub_status
+
   alertmanager:
     image: prom/alertmanager:latest
     command:
@@ -104,11 +134,11 @@ services:
       replicas: 1
       placement:
         constraints:
-          - "node.labels.dev-docker-1==true"
+          - "node.labels.prod-docker-1==true"
     volumes:
       - alertmanager:/alertmanager
       - alertmanager-config:/etc/alertmanager
-      
+
 networks:
  default:
    external:
