@@ -23,15 +23,16 @@ configs:
    
 services:
    cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
-    container_name: cadvisor
+    image: gcr.io/cadvisor/cadvisor:v0.39.0
+    command: -logtostderr -docker_only
     volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - /:/rootfs:ro
-      - /var/run:/var/run:ro
+      - /var/run:/var/run
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
       - /dev/disk:/dev/disk:ro
-    devices:
+    devices: 
       - /dev/kmsg
     deploy:
       mode: global
