@@ -168,6 +168,6 @@ services:
       - alertmanager-config:/etc/alertmanager
       
 networks:
- default:
-   external:
-     name: nextracker-back
+  nextracker-back:
+    name: nextracker-back
+    external: true
