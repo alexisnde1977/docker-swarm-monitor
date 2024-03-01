@@ -32,9 +32,10 @@ services:
       - /var/run:/var/run
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-    devices:
-      - /dev/kmsg:/dev/kmsg
+      - /dev/disk/:/dev/disk
     privileged: true
+    devices: 
+      - "/dev/kmsg"
     deploy:
       mode: global
 
