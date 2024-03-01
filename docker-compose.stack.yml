@@ -23,7 +23,7 @@ configs:
    
 services:
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.37.0 
+    image: gcr.io/cadvisor/cadvisor:v0.47.2
     command: -logtostderr -docker_only
     restart: unless-stopped
     privileged: true
