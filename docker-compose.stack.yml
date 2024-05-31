@@ -97,34 +97,7 @@ services:
       placement:
         constraints:
           - "node.labels.prod-docker-1==true"
-
-  tatooine_nginx:
-    image: nginx/nginx-prometheus-exporter:latest 
-    container_name: tatooine_nginx
-    expose:
-       - "9113"
-    command:
-      - -nginx.scrape-uri
-      - http://task-tatooine:80/stub_status 
-      
-  user-management_nginx:
-    image: nginx/nginx-prometheus-exporter:latest 
-    container_name: user-management_nginx
-    expose:
-       - "9113"
-    command:
-      - -nginx.scrape-uri
-      - http://user-management:80/stub_status
-      
-  external-trackerops-landing-page_nginx:
-    image: nginx/nginx-prometheus-exporter:latest 
-    container_name: external-trackerops-landing-page_nginx
-    expose:
-       - "9113"
-    command:
-      - -nginx.scrape-uri
-      - http://external-trackerops-landing-page:80/stub_status
-
+    
   alertmanager:
     image: prom/alertmanager:latest
     command:
