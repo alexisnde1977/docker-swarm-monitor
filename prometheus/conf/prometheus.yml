@@ -21,11 +21,6 @@ scrape_configs:
     honor_labels: true
     static_configs:
       - targets: ['localhost:9090']
-      
-  - job_name: 'nginx-exporter'
-    honor_labels: true
-    static_configs:
-      - targets: ['tatooine_nginx:9113','user-management_nginx:9113','external-trackerops-landing-page_nginx:9113']
   
   - job_name: 'dockerd-exporter'
     honor_labels: true
